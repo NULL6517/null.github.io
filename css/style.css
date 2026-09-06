@@ -51,30 +51,29 @@
 }
 
 .mobile {
-  display: none;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 50px;
+  font-size: 90px;
+  display: block;
 }
 
 h1,
 h2,
 span {
-  display: block;
+  display: none;
 }
 
-@media screen and (max-width: 670px) {
-  h2 {
-    font-size: 48px;
+@media screen and (min-width: 670px) {
+  .mobile {
+    display: none;
   }
 
-  #emoji {
-    font-size: 32px;
-  }
-
-  .progress-container {
-    height: 4px;
-  }
-
-  .progress-bar {
-    height: 4px;
+  h1,
+  h2,
+  span {
+    display: block;
   }
 
   body {

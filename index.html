@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>李颖钰生日快乐</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 播放启动图标 -->
+    <div id="playButton" class="play-button">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+
+    <!-- 背景星星和纸屑容器 -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 进度条末端效果容器 -->
+    <div class="progress-end-effect" id="progressEndEffect"></div>
+
+    <!-- 进度条和按钮 -->
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <button class="easter-egg-btn" id="easterEggBtn">播放彩蛋一 🎆</button>
+
+    <bokeh></bokeh>
+    <bokeh></bokeh>
+
+    <div class="mobile">Open in desktop</div>
+    <div class="pyro">
+      <div class="before"></div>
+      <div class="after"></div>
+    </div>
+
+    <h2 id="happyBirthday">Happy Birthday</h2>
+    <span id="emoji">🎉</span>
+    <div class="candle">
+      <div id="flame" class="lit"></div>
+    </div>
+
+    <div class="cake"></div>
+    <div class="plate"></div>
+
+    <!-- 祝福文字元素 -->
+    <div id="birthdayText" class="fullscreen-text">
+      <br><br>
+      李颖钰，生日快乐<br><br>
+      happy birthday
+    </div>
+
+    <audio id="bgMusic" src="music/1.mp3" loop></audio>
+    <script src="js/birthday.js"></script>
+  </body>
+</html>

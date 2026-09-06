@@ -1,0 +1,691 @@
+@import url('https://fonts.googleapis.com/css?family=Concert+One|Pacifico');
+
+/* === 播放按钮 === */
+.play-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff3366 0%, #ff6b9d 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+  transition: all 0.3s ease;
+  animation: playButtonPulse 2s infinite;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(255, 51, 102, 0.6);
+}
+
+.play-button:active {
+  transform: scale(0.95);
+}
+
+.play-icon {
+  width: 30px;
+  height: 30px;
+  color: white;
+  margin-left: 2px;
+}
+
+@keyframes playButtonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(255, 51, 102, 0.7);
+  }
+}
+
+.play-button.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.mobile {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 50px;
+  font-size: 90px;
+  display: block;
+}
+
+h1,
+h2,
+span {
+  display: none;
+}
+
+@media screen and (min-width: 670px) {
+  .mobile {
+    display: none;
+  }
+
+  h1,
+  h2,
+  span {
+    display: block;
+  }
+
+  body {
+    background: linear-gradient(
+      to right,
+      #e2b8f7,
+      #d4bafa,
+      #c7bcfb,
+      #b9befb,
+      #acbff9
+    );
+    cursor: crosshair;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    font-family: 'Pacifico', cursive;
+  }
+
+  h1 {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    top: 120px;
+    font-size: 90px;
+    background: -webkit-linear-gradient(0deg, #ceadfc 0%, #a3bbfb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Concert One', cursive;
+    font-weight: 400;
+    z-index: -1;
+    letter-spacing: 6px;
+    opacity: 0;
+  }
+
+  span {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    top: 70px;
+    font-size: 70px;
+    opacity: 0;
+  }
+
+  h2 {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    top: 50px;
+    font-size: 90px;
+    background: -webkit-linear-gradient(90deg, #e9e6ff 0%, white 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+  }
+
+  /* === 背景星星和纸屑效果 === */
+  .stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  .star {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* 新增文字样式 */
+  .birthday-text {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0066;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .fullscreen-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-weight: bold;
+    color: #ff0066;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    z-index: 200;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  /* === 进度条和按钮样式 === */
+  .progress-container {
+    position: fixed;
+    bottom: 70px;
+    left: 20px;
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: visible;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 rgba(255, 51, 102, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 10px rgba(255, 51, 102, 0.4);
+    }
+  }
+
+  .progress-container.show {
+    opacity: 1;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff3366, #33ccff);
+    width: 0%;
+    transition: width 0.8s ease;
+    border-radius: 2px;
+    position: relative;
+    overflow: visible;
+  }
+
+  .progress-end-effect {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .star-effect {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at center, #ff3366 0%, transparent 70%);
+    animation: sparkle 1.5s infinite alternate;
+  }
+
+  .firework-effect {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ff3366;
+    opacity: 0;
+  }
+
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%);
+    animation: shimmer 3s infinite linear;
+    transform: translateX(-100%);
+  }
+
+  /* 彩蛋按钮样式 */
+  .easter-egg-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #ff3366, #ff9933, #33ccff, #9933ff);
+    background-size: 300% 300%;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: gradientMove 3s ease infinite, heartbeat 1.5s infinite ease-in-out;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: translateY(20px) scale(1);
+    }
+    50% {
+      transform: translateY(20px) scale(1.05);
+    }
+  }
+
+  .easter-egg-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    animation: gradientMove 3s ease infinite, heartbeat 1.5s infinite ease-in-out;
+  }
+
+  .easter-egg-btn:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes sparkle {
+    0% {
+      opacity: 0.3;
+      transform: scale(1) rotate(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.5) rotate(180deg);
+      box-shadow: 0 0 20px #ff3366;
+    }
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* === 心形卡片样式 === */
+  .heart-card {
+    position: fixed;
+    pointer-events: none;
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 心形 SVG 容器 */
+  .heart-shape {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 12px rgba(255, 51, 102, 0.8));
+  }
+
+  /* 心形内的文字 */
+  .heart-text {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.3;
+    max-width: 140px;
+    word-wrap: break-word;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    animation: heartTextShow 0.5s ease-out forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes heartFloat {
+    0% {
+      transform: translateY(0) scale(0.8);
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-80px) scale(0.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes heartTextShow {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .heart-card.float {
+    animation: heartFloat 3s ease-out forwards;
+  }
+
+  /* === 其他样式 === */
+  bokeh {
+    position: fixed;
+    width: 2vmin;
+    height: 2vmin;
+    border-radius: 50%;
+    animation-name: explosion;
+    animation-iteration-count: infinite;
+    animation-direction: reverse;
+    animation-timing-function: cubic-bezier(0.84, 0.02, 1, 1);
+  }
+
+  bokeh:nth-child(1) {
+    background-color: #feff28;
+    transform: translate(19.7487583923vw, 68.7688324071vh);
+    animation-duration: 4.1621369934s;
+    animation-delay: -1.1404253238s;
+  }
+  bokeh:nth-child(2) {
+    background-color: #ef8d22;
+    transform: translate(23.4996200544vw, 2.0070198256vh);
+    animation-duration: 3.5204801756s;
+    animation-delay: -0.0278958817s;
+  }
+
+  bokeh:nth-child(100) {
+    background-color: #ef8d22;
+    transform: translate(64.6990433218vw, 2.5228218889vh);
+    animation-duration: 4.7936838759s;
+    animation-delay: -2.1647212067s;
+  }
+
+  @keyframes explosion {
+    0% {
+      opacity: 0;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(50vw, 100vh);
+    }
+  }
+
+  /* === 蛋糕样式 === */
+  .cake {
+    position: relative;
+    top: 250px;
+    margin: auto;
+    width: 200px;
+    height: 60px;
+    background: #f9fdff;
+    border-radius: 100%;
+    transform: translateZ(100px);
+    box-shadow: 0px 4px 0px #f4f9fd, 0px 8px 0px #dba9ff,
+      0px 12px 0px #fec3b3, 0px 16px 0px #f7f6fb, 0px 20px 0px #f7f6fb,
+      0px 24px 0px #f7f6fb, 0px 28px 0px #f7f6fb, 0px 32px 0px #fea0bb,
+      0px 36px 0px #fea0bb, 0px 40px 0px #9cef9d, 0px 44px 0px #9cef9d,
+      0px 48px 0px #f7f6fb, 0px 52px 0px #f7f6fb, 0px 56px 0px #f7f6fb,
+      0px 60px 0px #f7f6fb, 0px 64px 0px #f7f6fb, 0px 68px 0px #dfa5fc,
+      0px 72px 0px #dfa5fc, 0px 76px 0px #fafffe, 0px 80px 0px #fafffe;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .plate {
+    position: absolute;
+    height: 90px;
+    width: 300px;
+    bottom: -95px;
+    left: 50%;
+    top: 380px;
+    margin-left: -150px;
+    border-radius: 100%;
+    background: radial-gradient(
+      ellipse closest-side at center,
+      #08c7fe 0%,
+      #04d7f2 71%,
+      #02ffd0 100%
+    );
+    box-shadow: 0px 3px 0px #00e2e1, 0px 6px 0px #00d3fb;
+    transform: translateZ(80px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .candle {
+    position: relative;
+    height: 50px;
+    width: 12px;
+    top: 280px;
+    margin: auto;
+    background: linear-gradient(0deg, #b7f4a7 0%, white 100%);
+    border-radius: 4px;
+    transform: translateZ(120px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  #flame {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .lit {
+    background: linear-gradient(to bottom, #fff6d9, #fbc36c);
+    width: 15px;
+    height: 35px;
+    border-top-left-radius: 10px 35px;
+    border-top-right-radius: 10px 35px;
+    border-bottom-right-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+    top: -34px;
+    margin: auto;
+    box-shadow: 0 0 17px 7px rgba(251, 246, 190, 0.71);
+    transform-origin: bottom;
+    animation: flicker 1s ease-in-out alternate infinite;
+  }
+
+  @keyframes flameGrow {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes flicker {
+    0% {
+      transform: skewX(5deg);
+      box-shadow: 0 0 17px 10px rgba(251, 246, 190, 0.71);
+    }
+    25% {
+      transform: skewX(-5deg);
+      box-shadow: 0 0 17px 5px rgba(251, 246, 190, 0.71);
+    }
+    50% {
+      transform: skewX(10deg);
+      box-shadow: 0 0 17px 7px rgba(251, 246, 190, 0.71);
+    }
+    75% {
+      transform: skewX(-10deg);
+      box-shadow: 0 0 17px 5px rgba(251, 246, 190, 0.71);
+    }
+    100% {
+      transform: skewX(5deg);
+      box-shadow: 0 0 17px 10px rgba(251, 246, 190, 0.71);
+    }
+  }
+
+  /* === 烟花样式 === */
+  .pyro > .before,
+  .pyro > .after {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+      0 0 #fff, 0 0 #fff, 0 0 #fff;
+    animation: 1s bang ease-out infinite backwards,
+      1s gravity ease-in infinite backwards,
+      5s position linear infinite backwards;
+  }
+
+  .pyro > .after {
+    animation-delay: 1.25s, 1.25s, 1.25s;
+    animation-duration: 1.25s, 1.25s, 6.25s;
+  }
+
+  @keyframes bang {
+    to {
+      box-shadow: -116px 70.3333333333px #ff9500,
+        -249px -169.6666666667px #00ff44, -89px -194.6666666667px #ff001e,
+        222px 31.3333333333px #00ff66, -69px -384.6666666667px #ff1e00,
+        -145px -198.6666666667px #ddff00, 13px -60.6666666667px #fff700,
+        -131px -339.6666666667px #ff00a6, -161px 39.3333333333px #00ff1e,
+        -8px -97.6666666667px #5500ff, -6px 39.3333333333px aqua,
+        13px -179.6666666667px #6aff00, 202px -265.6666666667px #ff00ee,
+        -216px -115.6666666667px red, 168px 80.3333333333px #008cff,
+        -144px -42.6666666667px #0080ff, -206px -272.6666666667px #99ff00,
+        60px -278.6666666667px #ff00ea, 114px -338.6666666667px #ff008c,
+        -44px -81.6666666667px #ffc800, 75px -7.6666666667px #00ff66,
+        -7px -226.6666666667px #00ffbb, -88px -313.6666666667px #3c00ff,
+        142px -319.6666666667px #ff0044, -135px -242.6666666667px #0d00ff,
+        103px -303.6666666667px #ff6600, 234px -34.6666666667px #c800ff,
+        224px -354.6666666667px #ff00c8, -87px -15.6666666667px #00ffe1,
+        232px 38.3333333333px #a200ff, 226px -144.6666666667px #002fff,
+        160px 63.3333333333px #ff000d, 211px -305.6666666667px yellow,
+        -167px -42.6666666667px #6a00ff, -232px 49.3333333333px #ff1a00,
+        115px -242.6666666667px #ff00cc, 36px -362.6666666667px #4400ff,
+        160px -136.6666666667px #ff0022, 6px -316.6666666667px #ff7b00,
+        238px 47.3333333333px #ff0066, 221px -320.6666666667px #3700ff,
+        181px -414.6666666667px #4800ff, 226px 46.3333333333px #77ff00,
+        -159px -366.6666666667px #ff005e, 13px -177.6666666667px #ff00b3,
+        -110px -232.6666666667px #ffee00, 42px -396.6666666667px #5500ff,
+        154px -407.6666666667px #ff0077, 131px -19.6666666667px #0084ff,
+        179px -254.6666666667px #002fff, -226px -31.6666666667px #4d00ff;
+    }
+  }
+
+  @keyframes gravity {
+    to {
+      transform: translateY(200px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes position {
+    0%,
+    19.9% {
+      margin-top: 10%;
+      margin-left: 40%;
+    }
+    20%,
+    39.9% {
+      margin-top: 40%;
+      margin-left: 30%;
+    }
+    40%,
+    59.9% {
+      margin-top: 20%;
+      margin-left: 70%;
+    }
+    60%,
+    79.9% {
+      margin-top: 30%;
+      margin-left: 20%;
+    }
+    80%,
+    99.9% {
+      margin-top: 30%;
+      margin-left: 80%;
+    }
+  }
+}
